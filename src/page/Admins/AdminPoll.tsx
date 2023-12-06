@@ -190,7 +190,8 @@ const AdminPoll: React.FC = () => {
           </div>
         </div>
       </div>
-
+      
+      <div className="mt-2">
       <TablePagination
         style={{ display: 'flex', justifyContent: 'center', color: 'white' }}
         component="div"
@@ -199,8 +200,9 @@ const AdminPoll: React.FC = () => {
         page={!pollList.length || pollList.length <= 0 ? 0 : page}
         rowsPerPage={rowPerPage}
         onPageChange={handlePageChange}
-        onRowsPerPageChange={handleRowPerPageChange}
-      />
+        onRowsPerPageChange={handleRowPerPageChange}/>
+        </div>
+
     </>
   );
 };

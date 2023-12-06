@@ -22,7 +22,7 @@ const Router: React.FC<RouterProps> = () => {
   }, [loginSlice.isSuccess]);
 
   const token = localStorage.getItem('token');
-  const role = localStorage.getItem('role');
+  const role : any = localStorage.getItem('role');
   const isToken = role && token ? true : false;
 
   useEffect(() => {
