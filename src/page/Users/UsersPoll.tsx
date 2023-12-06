@@ -7,6 +7,7 @@ import { Backdrop, CircularProgress, TablePagination } from '@mui/material';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AppDispatch } from '../../Redux/store/store.tsx';
+import { RootState } from '../../Redux/rootReducer/rootReducer.tsx';
 
 interface Option {
   option: string;
@@ -56,7 +57,7 @@ const UsersPoll: React.FC = () => {
 
   const [disabledOptions, setDisabledOptions] = useState<{ [key: string]: boolean }>({});
   const pollList = useSelector((state: any) => state.pollSlice.data) as Poll[];
-  const pollListLoading = useSelector((state: any) => state.pollSlice.isLoading);
+  const pollListLoading = useSelector((state: RootState) => state.pollSlice.isLoading);
   const token = localStorage.getItem('token');
 
   useEffect(() => {

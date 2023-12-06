@@ -11,6 +11,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { TablePagination } from '@mui/material';
 import { AppDispatch } from '../../Redux/store/store.tsx';
+import { RootState } from '../../Redux/rootReducer/rootReducer.tsx';
 
 interface Option {
   option: string;
@@ -64,12 +65,12 @@ const AdminPoll: React.FC = () => {
   }, [page, rowPerPage]);
 
   const pollList = useSelector((state: any) => state.pollSlice.data);
-  const deleteTitleLoading = useSelector((state: any) => state.deleteTitleSlice.isLoading);
-  const deleteOptionLoading = useSelector((state: any) => state.deleteOptionSlice.isLoading);
-  const editTitleSliceLoading = useSelector((state: any) => state.editTitleSlice.isLoading);
-  const addOptionSliceLoading = useSelector((state: any) => state.addOptionSlice.isLoading);
-  const listDataloading = useSelector((state: any) => state.listDataSlice.isLoading);
-  const addVoteLoading = useSelector((state: any) => state.addVote.isLoading);
+  const deleteTitleLoading = useSelector((state: RootState) => state.deleteTitleSlice.isLoading);
+  const deleteOptionLoading = useSelector((state: RootState) => state.deleteOptionSlice.isLoading);
+  const editTitleSliceLoading = useSelector((state: RootState) => state.editTitleSlice.isLoading);
+  const addOptionSliceLoading = useSelector((state: RootState) => state.addOptionSlice.isLoading);
+  const listDataloading = useSelector((state: RootState) => state.listDataSlice.isLoading);
+  const addVoteLoading = useSelector((state: RootState) => state.addVote.isLoading);
 
   const navigate = useNavigate();
 

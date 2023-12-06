@@ -7,14 +7,14 @@ interface LoginState {
     isLoading: boolean;
     isSuccess: boolean;
     isError: boolean;
-    data: Record<string , unknown>;
+    data: string[];
   }
   
   const initialState : LoginState = {
     isLoading: false,
     isSuccess: false,
     isError: false,
-    data: {},
+    data: [],
   };
   
 const adminPollSlice = createSlice({
@@ -25,13 +25,13 @@ const adminPollSlice = createSlice({
             state.isLoading = true;
             state.isError = false;
         },
-        getSuccess(state, action : PayloadAction<any>) {
+        getSuccess(state, action : PayloadAction<string[]>) {
             state.isLoading = false;
             state.isError = false;
             state.isSuccess = true;
             state.data = { ...action.payload };
         },
-        hasError(state, action : PayloadAction<any>) {
+        hasError(state, action : PayloadAction<string[]>) {
             state.isError = true;
             state.isLoading = false;
             state.isSuccess = false;
@@ -41,7 +41,7 @@ const adminPollSlice = createSlice({
             state.isError = false;
             state.isLoading = false;
             state.isSuccess = false;
-            state.data = {};
+            state.data = [];
         },
     },
 });

@@ -10,12 +10,12 @@ const Option = () => {
 
     const location = useLocation();
     const [optionData, setOptionData] = useState('');
-    const { optionDataId } = useParams();
+    const { optionDataId } : any = useParams();
     const optionsArray = location.state.map((option : any) => option.option);
 
     const navigate = useNavigate();
     
-    const handleForm = (e) => {
+    const handleForm = (e : any) => {
         e.preventDefault();
         if (optionData.trim() !== '') {
             if (optionsArray.includes(optionData)) {

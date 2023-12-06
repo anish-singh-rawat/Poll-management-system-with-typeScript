@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useDispatch, useSelector } from "react-redux";
 import { Backdrop, CircularProgress } from "@mui/material";
 import { AppDispatch } from "../../Redux/store/store.tsx";
+import { RootState } from "../../Redux/rootReducer/rootReducer.tsx";
 
 interface FormValues {
   username: string;
@@ -20,7 +21,7 @@ const SignUp: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
 
-  const signupSlice = useSelector((state: any) => state.signupSlice);
+  const signupSlice : any = useSelector((state: RootState) => state.signupSlice);
 
   useEffect(() => {
     if (signupSlice.data.error === 1) {

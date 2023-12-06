@@ -10,6 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 import { CircularProgress } from '@mui/material';
 import { AppDispatch } from '../../Redux/store/store.tsx';
+import { RootState } from '../../Redux/rootReducer/rootReducer.tsx';
 
 interface LoginData {
   username: string;
@@ -21,8 +22,8 @@ const Login: React.FC = () => {
   const [buttonDisable, setButtonDisable] = useState(false);
   const navigate = useNavigate();
 
-  const loginSlice = useSelector((state: any) => state.loginSlice);
-  const status = useSelector((state: any) => state.loginSlice.isLoading);
+  const loginSlice : any = useSelector((state: RootState) => state.loginSlice);
+  const status = useSelector((state: RootState) => state.loginSlice.isLoading);
 
   useEffect(() => {
     if (loginSlice.isSuccess && loginSlice.data.token) {
