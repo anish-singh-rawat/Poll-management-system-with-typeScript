@@ -10,50 +10,6 @@ import Option from '../page/AddOption/Option.tsx'
 import { useSelector } from 'react-redux'
 import PrivateRoute from './PrivateRoute.tsx'
 import { RootState } from '../Redux/rootReducer/rootReducer.tsx'
-
-// export default function Router() {
-
-//   const loginSlice = useSelector((state : RootState) => state.loginSlice);
-//   const Navigate = useNavigate()
-
-//   useEffect(() => {
-//     localStorage.getItem("token");
-//     localStorage.getItem("role");
-//   }, [loginSlice.isSuccess]);
-
-//   const token = localStorage.getItem('token');
-//   const role = localStorage.getItem("role");
-//   const isToken = role && token ? true : false ;
-
-//   useEffect(()=>{
-//     Navigate('/')
-//   },[isToken])
-
-//   return (
-//     <Routes>
-      
-//       { isToken &&  <Route path='/' element={role.toLowerCase() === "admin" ?  
-//       <AdminPoll /> : <UsersPoll /> } /> }
-
-//       <Route path='/' element={<Login />}></Route>
-
-//       <R path="/adminPoll" element={<PrivateRoute login={(localStorage.getItem("token") && localStorage.getItem("role") === "admin")}>  <AdminPoll /></PrivateRoute>}>
-//       </Route>
-
-//       <R path="/userPoll" element={<PrivateRoute login={(localStorage.getItem("token") && localStorage.getItem("role") === "guest")}>  <UsersPoll /></PrivateRoute>}>
-//       </Route>
-
-//       <Route path='/signup' element={<SignUp />}> </Route>
-//       {/* <Route path='/login' element={<Login />}> </Route> */}
-//       <Route path='/AddData' element={<AddData />} > </Route>
-//       <Route path='/Editdata/:editDataId' element={<EditData />}> </Route>
-//       <Route path='/AddOption/:optionDataId' element={<Option />}> </Route>
-
-//     </Routes>
-//   )
-// }
-
-
 interface RouterProps {}
 
 const Router: React.FC<RouterProps> = () => {
