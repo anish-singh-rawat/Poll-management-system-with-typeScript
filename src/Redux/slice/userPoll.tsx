@@ -8,6 +8,9 @@ interface PollState {
   isError: boolean;
   data: string[]; 
 }
+interface GetSuccessInter {
+  data: string[];
+}
 
 const initialState: PollState = {
   isLoading: false,
@@ -24,7 +27,7 @@ const pollSlice = createSlice({
       state.isLoading = true;
       state.isError = false;
     },
-    getSuccess(state, action:PayloadAction<any>) {
+    getSuccess(state, action:PayloadAction<GetSuccessInter>) {
       state.isLoading = false;
       state.isError = false;
       state.isSuccess = true;

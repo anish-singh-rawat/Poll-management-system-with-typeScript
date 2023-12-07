@@ -10,6 +10,12 @@ interface LoginState {
   data: string[];
 }
 
+interface headerInter {
+  headers:{
+    access_token : string
+  }
+}
+
 const initialState : LoginState = {
   isLoading: false,
   isSuccess: false,
@@ -47,11 +53,13 @@ const addVote = createSlice({
   },
 });
 
-export function VoteData(VoteId : string, VoteOptionText : string, header : any) {
+export function VoteData(VoteId : string, VoteOptionText : string, header : headerInter) {
   return async (dispatch : AppDispatch) => {
     dispatch(addVote.actions.startLoading());
     try {
       const response = await Instance.get(`do_vote?id=${VoteId}&option_text=${VoteOptionText}`, header);
+      console.log(typeof header, header , 'header');
+      
       dispatch(addVote.actions.loginSuccess(response.data));
     } catch (error) {
       dispatch(addVote.actions.hasError(error));

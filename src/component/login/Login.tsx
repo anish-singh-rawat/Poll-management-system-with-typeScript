@@ -17,17 +17,32 @@ interface LoginData {
   userpassword: string;
 }
 
+interface decode {
+  role : string;
+}
+
+interface LoginSliceState {
+  data: {
+    token?: string;
+    error?: number;
+  };
+  isLoading: boolean;
+  isSuccess: boolean;
+}
+
+
 const Login: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
   const [buttonDisable, setButtonDisable] = useState(false);
   const navigate = useNavigate();
 
-  const loginSlice : any = useSelector((state: RootState) => state.loginSlice);
+  const loginSlice  = useSelector((state: RootState) => state.loginSlice) as LoginSliceState;
   const status = useSelector((state: RootState) => state.loginSlice.isLoading);
 
   useEffect(() => {
     if (loginSlice.isSuccess && loginSlice.data.token) {
-      const decoded: any = jwtDecode(loginSlice.data.token);
+      const decoded = jwtDecode(loginSlice.data.token) as decode;
+      
       localStorage.setItem('token', loginSlice.data.token);
       localStorage.setItem('role', decoded.role.toLowerCase());
       dispatch(resetReducer());
@@ -59,7 +74,7 @@ const Login: React.FC = () => {
     },
     validationSchema: schema,
   });
-
+  
   return (
     <>
       <ToastContainer />

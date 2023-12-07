@@ -17,12 +17,18 @@ interface FormValues {
   role: string;
 }
 
+interface signupSlice{
+  data : {
+    error?: number;
+  };
+  isSuccess : boolean;
+}
 
 const SignUp: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
 
-  const signupSlice : any  = useSelector((state: RootState) => state.signupSlice)  
+  const signupSlice  = useSelector((state: RootState) => state.signupSlice)  as signupSlice;
 
   useEffect(() => {
     if (signupSlice.data.error === 1) {
@@ -84,17 +90,13 @@ const SignUp: React.FC = () => {
                 <form className="mt-2" onSubmit={formikData.handleSubmit}>
                   <div className="user-name-feild-div">
                     <label htmlFor="" className="user-name-label-feild">
-                      {" "}
-                      UserName{" "}
+                      UserName
                     </label>
                     <br />
-                    <input
-                      type="text"
-                      name="username"
+                    <input type="text" name="username"
                       onChange={formikData.handleChange}
                       value={formikData.values.username}
-                      className="user-name-input mt-2"
-                    />
+                      className="user-name-input mt-2" />
                   </div>
 
                   <div className="user-password-feild mt-5">

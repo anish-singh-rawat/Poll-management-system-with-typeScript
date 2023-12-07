@@ -9,15 +9,25 @@ import "react-toastify/dist/ReactToastify.css";
 import { AppDispatch } from "../../Redux/store/store.tsx";
 import { RootState } from "../../Redux/rootReducer/rootReducer.tsx";
 
-interface Option {
-  option: string;
+interface PollListInter{
+  pollSlice: {
+    data: Array<{
+      title: string;
+      _id: string;
+      options : Array<{
+        option : string;
+        vote : number
+      }>;
+    }>;
+  }
 }
 
-interface Poll {
-  _id: string;
-  title: string;
-  options: Option[];
+interface Header {
+  headers: {
+    access_token: string | any;
+  };
 }
+
 
 const UsersPoll: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -25,17 +35,21 @@ const UsersPoll: React.FC = () => {
   const [page, setPage] = useState<number>(0);
   const [rowPerPageOption, setRowPerPageOption] = useState<number[]>([5, 10, 15]);
 
-  const handlePageChange = (event: React.MouseEvent<HTMLButtonElement> | null, updatedPage: number) =>
-    setPage(updatedPage);
+  const handlePageChange = (
+    event: React.MouseEvent<HTMLButtonElement> | null,
+    updatedPage: number
+  ) => setPage(updatedPage);
 
-  const handleRowPerPageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleRowPerPageChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setRowPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
 
   const row = (): number => {
-    if (localStorage.getItem('rowpage')) {
-      return JSON.parse(localStorage.getItem('rowpage')!);
+    if (localStorage.getItem("rowpage")) {
+      return JSON.parse(localStorage.getItem("rowpage")!);
     }
     return 5;
   };
@@ -43,8 +57,8 @@ const UsersPoll: React.FC = () => {
   const [rowPerPage, setRowPerPage] = useState<number>(row());
 
   useEffect(() => {
-    const storedPage = JSON.parse(localStorage.getItem('page')!);
-    const storedRowPage = JSON.parse(localStorage.getItem('rowpage')!);
+    const storedPage = JSON.parse(localStorage.getItem("page")!);
+    const storedRowPage = JSON.parse(localStorage.getItem("rowpage")!);
 
     if (storedPage && storedRowPage) {
       setPage(storedPage);
@@ -53,15 +67,14 @@ const UsersPoll: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('page', JSON.stringify(page));
-    localStorage.setItem('rowpage', JSON.stringify(rowPerPage));
+    localStorage.setItem("page", JSON.stringify(page));
+    localStorage.setItem("rowpage", JSON.stringify(rowPerPage));
   }, [page, rowPerPage]);
-
 
   const [disabledOptions, setDisabledOptions] = useState<{
     [key: string]: boolean;
   }>({});
-  const pollList = useSelector((state: any) => state.pollSlice.data) as Poll[];
+  const pollList = useSelector((state: PollListInter) => state.pollSlice.data);
   const pollListLoading = useSelector(
     (state: RootState) => state.pollSlice.isLoading
   );
@@ -78,11 +91,11 @@ const UsersPoll: React.FC = () => {
     localStorage.setItem("disabledOptions", JSON.stringify(disabledOptions));
   }, [disabledOptions]);
 
-  const header = {
+  const header : Header  = {
     headers: {
-      access_token: token,
+      access_token : token,
     },
-  };
+  };  
 
   const navigate = useNavigate();
 
@@ -133,64 +146,68 @@ const UsersPoll: React.FC = () => {
         </div>
       </center>
 
-      <div className="container data-container"
-        style={{ wordBreak: "break-word" }} >
+      <div
+        className="container data-container"
+        style={{ wordBreak: "break-word" }}
+      >
         <div className="row">
           <div className="col">
             {pollList.length > 0 &&
-              pollList.slice(page * rowPerPage, page * rowPerPage + rowPerPage).map((dataList) => (
-                <div className="card my-3" key={dataList._id}>
-                  <div>
-                    <div className="card-header bg-success">
-                      <h5 className="card-title">{dataList.title}</h5>
-                    </div>
-                    <div className="card-body">
-                      {dataList.options.map((option, index) => (
-                        <div className="form-check" key={index}>
-                          <input
-                            className="form-check-input input-radio-btn"
-                            type="radio"
-                            name={`radio-${dataList._id}`}
-                            id={`${index}`}
-                            onChange={() =>
-                              inputVoteChange(
-                                dataList.title,
-                                dataList._id,
-                                option.option
-                              )
-                            }
-                            disabled={disabledOptions[dataList.title]}
-                          />
-                          <label
-                            className="form-check-label mx-2"
-                            htmlFor={`radio-${dataList._id}-${index}`}
-                          >
-                            <div className="text-sm text-md-lg text-lg-xl">
-                              {option.option}
-                            </div>
-                          </label>
-                        </div>
-                      ))}
+              pollList
+                .slice(page * rowPerPage, page * rowPerPage + rowPerPage)
+                .map((dataList) => (
+                  <div className="card my-3" key={dataList._id}>
+                    <div>
+                      <div className="card-header bg-success">
+                        <h5 className="card-title">{dataList.title}</h5>
+                      </div>
+                      <div className="card-body">
+                        {dataList.options.map((option, index) => (
+                          <div className="form-check" key={index}>
+                            <input
+                              className="form-check-input input-radio-btn"
+                              type="radio"
+                              name={`radio-${dataList._id}`}
+                              id={`${index}`}
+                              onChange={() =>
+                                inputVoteChange(
+                                  dataList.title,
+                                  dataList._id,
+                                  option.option
+                                )
+                              }
+                              disabled={disabledOptions[dataList.title]}
+                            />
+                            <label
+                              className="form-check-label mx-2"
+                              htmlFor={`radio-${dataList._id}-${index}`}
+                            >
+                              <div className="text-sm text-md-lg text-lg-xl">
+                                {option.option}
+                              </div>
+                            </label>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
           </div>
         </div>
       </div>
-      
-      <div className="mt-4">
-      <TablePagination
-        style={{ display: 'flex', justifyContent: 'center', color: 'white' }}
-        component="div"
-        rowsPerPageOptions={rowPerPageOption}
-        count={pollList.length}
-        page={!pollList.length || pollList.length <= 0 ? 0 : page}
-        rowsPerPage={rowPerPage}
-        onPageChange={handlePageChange}
-        onRowsPerPageChange={handleRowPerPageChange}/>
-      </div>
 
+      <div className="mt-4">
+        <TablePagination
+          style={{ display: "flex", justifyContent: "center", color: "white" }}
+          component="div"
+          rowsPerPageOptions={rowPerPageOption}
+          count={pollList.length}
+          page={!pollList.length || pollList.length <= 0 ? 0 : page}
+          rowsPerPage={rowPerPage}
+          onPageChange={handlePageChange}
+          onRowsPerPageChange={handleRowPerPageChange}
+        />
+      </div>
     </>
   );
 };

@@ -9,6 +9,9 @@ interface LoginState {
   isError: boolean;
   data: string[];
 }
+interface Option {
+  option: string;
+}
 
 const initialState : LoginState = {
   isLoading: false,
@@ -46,7 +49,7 @@ const listDataSlice = createSlice({
   },
 });
 
-export  function listData(payload : {title : string}, newOptions : any) {
+export  function listData(payload : {title : string}, newOptions : Option[]) {
   return async (dispatch : AppDispatch) => {
     dispatch(listDataSlice.actions.startLoading());
 

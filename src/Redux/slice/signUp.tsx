@@ -46,7 +46,7 @@ const signupSlice = createSlice({
   },
 });
 
-export function signup(payload : {username : string, userpassword : string, role : any}) {
+export function signup(payload : {username : string, userpassword : string, role : string}) {
   return async (dispatch : AppDispatch) => {
 
     dispatch(signupSlice.actions.startLoading());

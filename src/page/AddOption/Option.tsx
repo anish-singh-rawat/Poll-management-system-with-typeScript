@@ -6,16 +6,15 @@ import { useDispatch } from 'react-redux'
 import { AppDispatch } from '../../Redux/store/store.tsx'
 
 const Option = () => {
-    const dispatch: AppDispatch = useDispatch();
 
+    const dispatch: AppDispatch = useDispatch();
     const location = useLocation();
     const [optionData, setOptionData] = useState('');
-    const { optionDataId } : any = useParams();
-    const optionsArray = location.state.map((option : any) => option.option);
+    const { optionDataId } = useParams() as { optionDataId: string };
+    const optionsArray = location.state.map((option) => option.option);
 
     const navigate = useNavigate();
-    
-    const handleForm = (e) => {
+       const handleForm = (e) => {
         e.preventDefault();
         if (optionData.trim() !== '') {
             if (optionsArray.includes(optionData)) {

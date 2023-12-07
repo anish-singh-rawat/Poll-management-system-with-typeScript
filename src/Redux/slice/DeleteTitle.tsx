@@ -46,7 +46,7 @@ const deleteTitleSlice = createSlice({
   },
 });
 
-export function DeleteTitle(payload : any) {
+export function DeleteTitle(payload : string) {
   return async (dispatch : AppDispatch) => {
     dispatch(deleteTitleSlice.actions.startLoading());
     try {

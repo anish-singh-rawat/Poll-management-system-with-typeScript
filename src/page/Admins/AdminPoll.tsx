@@ -18,10 +18,17 @@ interface Option {
   vote: number;
 }
 
-interface PollData {
-  _id: string;
-  title: string;
-  options: Option[];
+interface PollListInter{
+  pollSlice: {
+    data: Array<{
+      title: string;
+      _id: string;
+      options : Array<{
+        option : string;
+        vote : number
+      }>;
+    }>;
+  }
 }
 
 const AdminPoll: React.FC = () => {
@@ -64,7 +71,8 @@ const AdminPoll: React.FC = () => {
     localStorage.setItem('rowpage', JSON.stringify(rowPerPage));
   }, [page, rowPerPage]);
 
-  const pollList = useSelector((state: any) => state.pollSlice.data);
+  const pollList = useSelector((state: PollListInter) => state.pollSlice.data);
+
   const deleteTitleLoading = useSelector((state: RootState) => state.deleteTitleSlice.isLoading);
   const deleteOptionLoading = useSelector((state: RootState) => state.deleteOptionSlice.isLoading);
   const editTitleSliceLoading = useSelector((state: RootState) => state.editTitleSlice.isLoading);
@@ -131,7 +139,7 @@ const AdminPoll: React.FC = () => {
         <div className="row">
           <div className="col">
             {pollList.length > 0 &&
-              pollList.slice(page * rowPerPage, page * rowPerPage + rowPerPage).map((dataList: PollData) => (
+              pollList.slice(page * rowPerPage, page * rowPerPage + rowPerPage).map((dataList) => (
                 <div key={dataList._id}>
                   <div className="card mt-3">
                     <div className="card-header bg-success text-light ">
