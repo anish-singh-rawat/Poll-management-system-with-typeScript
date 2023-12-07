@@ -15,7 +15,7 @@ const Option = () => {
 
     const navigate = useNavigate();
     
-    const handleForm = (e : any) => {
+    const handleForm = (e) => {
         e.preventDefault();
         if (optionData.trim() !== '') {
             if (optionsArray.includes(optionData)) {

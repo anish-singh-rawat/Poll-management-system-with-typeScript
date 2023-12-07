@@ -58,8 +58,6 @@ const UsersPoll: React.FC = () => {
   }, [page, rowPerPage]);
 
 
-  ///////////////////////////////
-
   const [disabledOptions, setDisabledOptions] = useState<{
     [key: string]: boolean;
   }>({});

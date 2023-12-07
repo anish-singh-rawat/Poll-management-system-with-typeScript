@@ -4,8 +4,8 @@ import "./SignUp.css";
 import { useFormik } from "formik";
 import { schema } from "../../utilities/utilities.tsx";
 import { resetReducer, signup } from "../../Redux/slice/signUp.tsx";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { Backdrop, CircularProgress } from "@mui/material";
 import { AppDispatch } from "../../Redux/store/store.tsx";
@@ -17,21 +17,22 @@ interface FormValues {
   role: string;
 }
 
+
 const SignUp: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
 
-  const signupSlice : any = useSelector((state: RootState) => state.signupSlice);
+  const signupSlice : any  = useSelector((state: RootState) => state.signupSlice)  
 
   useEffect(() => {
     if (signupSlice.data.error === 1) {
-      toast.error(signupSlice.data.message);
       dispatch(resetReducer());
+      alert("user already exists");
     } else if (signupSlice.data.error === 0) {
       toast.success("signUp successfully");
       navigate("/");
       dispatch(resetReducer());
-    }
+    }    
   }, [signupSlice.isSuccess]);
 
   const formikData = useFormik({
@@ -48,7 +49,7 @@ const SignUp: React.FC = () => {
         } else if (values.userpassword.length < 5) {
           toast.warning("user password must be at least 5 characters");
         } else {
-          dispatch(signup(values));
+          dispatch(signup(values));          
           dispatch(resetReducer());
         }
       } catch (error) {
@@ -132,12 +133,9 @@ const SignUp: React.FC = () => {
                   </div>
 
                   <center className="p-4">
-                    <button
-                      // to={"/signup"}
-                      type="submit"
-                      className="singup-btn btn btn-success"
-                    >
-                      Sign Up
+                    <button type="submit"
+                    className="singup-btn btn btn-success">
+                    Sign Up
                     </button>
                     <br />
                     <br />

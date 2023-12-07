@@ -88,7 +88,7 @@ const AdminPoll: React.FC = () => {
     setDeleteId(titleID);
   };
 
-  const deleteOptionData = (optionInd: any, optionText: Option) => {
+  const deleteOptionData = (optionInd: string, optionText: Option) => {
     dispatch(deleteOption(optionInd, optionText.option));
     setOptionData(optionText.option);
   };

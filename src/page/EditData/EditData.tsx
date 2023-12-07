@@ -13,7 +13,7 @@ const EditData: React.FC<EditDataProps> = () => {
   const dispatch: AppDispatch = useDispatch();
 
   const location = useLocation();
-  const { editDataId } = useParams<{ editDataId: string }>();
+  const { editDataId } : any = useParams();
   const navigate = useNavigate();
 
   const formikEditData = useFormik({
